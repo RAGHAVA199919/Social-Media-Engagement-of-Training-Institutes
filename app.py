@@ -5,12 +5,16 @@ import joblib
 # Load the trained KNN model
 KNN = joblib.load('knn_model.pkl')
 
+# Unique course names and types extracted from dataset
+unique_course_names = ['AI', 'Data Analytics', 'Data Science', 'Full Stack Development', 'AWS,Devops', 'Azure,Devops', 'GCP']
+unique_course_types = ['POST', 'REEL']
+
 # Streamlit UI
 def main():
     st.set_page_config(page_title="Engagement Rate Predictor", page_icon="📊", layout="centered")
     
     # Add a banner image
-    st.image("https://i0.wp.com/slajobs.com/wp-content/uploads/2019/05/internship-training-in-chennai-kk-nagar.jpg?w=625&ssl=17", use_column_width=True)
+    st.image("https://img.freepik.com/free-photo/medium-shot-people-learning_23-2149300715.jpg?ga=GA1.1.1997878905.1741180135&semt=ais_hybrid", use_column_width=True)
     
     st.title("📈 Engagement Rate Prediction App for Training Institutes")
     st.write("### Enter the details below to predict the engagement rate.")
@@ -18,11 +22,12 @@ def main():
     # Sidebar with an image
     st.sidebar.image("https://www.webskittersacademy.in/wp-content/uploads/2022/04/IT-Training-Institute.jpg", use_column_width=True)
     st.sidebar.header("🔍 About the Model")
-    st.sidebar.write("This model uses K-Nearest Neighbors (KNN) regression to predict engagement rates based on various input features.")
+    st.sidebar.write("The Best model is KNN model,"
+        " So for obtaining best output we use K-Nearest Neighbors (KNN) regression to predict engagement rates based on various input features.")
     
-    # User inputs
-    course_name = st.text_input("📚 Course Name:")
-    course_type = st.text_input("📌 Course Type:")
+    # User inputs with dropdowns
+    course_name = st.selectbox("📚 Course Name:", unique_course_names)
+    course_type = st.selectbox("📌 Course Type:", unique_course_types)
     followers = st.number_input("👥 Number of Followers:", min_value=0)
     likes = st.number_input("👍 Number of Likes:", min_value=0)
     comments = st.number_input("💬 Number of Comments:", min_value=0)
@@ -38,6 +43,5 @@ def main():
         
         st.success(f"🎯 Predicted Engagement Rate: {predicted_engagement_rate[0]:.4f}")
         
-
 if __name__ == "__main__":
     main()
